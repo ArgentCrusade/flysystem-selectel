@@ -20,7 +20,7 @@ $ composer require argentcrusade/flysystem-selectel
 ## Usage
 
 ``` php
-use ArgentCrusade\Flysystem\SelectelAdapter;
+use ArgentCrusade\Flysystem\Selectel\SelectelAdapter;
 use ArgentCrusade\Selectel\CloudStorage\Api\ApiClient;
 use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
 use League\Flysystem\Filesystem;

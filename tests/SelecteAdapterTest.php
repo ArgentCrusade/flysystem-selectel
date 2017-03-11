@@ -224,17 +224,6 @@ class SelectelAdapterTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider selectelProvider
      */
-    public function testSetVisibility($adapter, $mock)
-    {
-        $mock->shouldReceive('setType')->andReturn('private');
-        $result = $adapter->setVisibility('something', 'private');
-
-        $this->assertInternalType('array', $result);
-    }
-
-    /**
-     * @dataProvider selectelProvider
-     */
     public function testDelete($adapter, $mock, $files)
     {
         $file = Mockery::mock('ArgentCrusade\Selectel\CloudStorage\File');

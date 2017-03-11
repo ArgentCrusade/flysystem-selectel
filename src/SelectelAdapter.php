@@ -4,6 +4,7 @@ namespace ArgentCrusade\Flysystem\Selectel;
 
 use League\Flysystem\Config;
 use League\Flysystem\AdapterInterface;
+use League\Flysystem\Adapter\Polyfill\NotSupportingVisibilityTrait;
 use ArgentCrusade\Selectel\CloudStorage\Contracts\ContainerContract;
 use ArgentCrusade\Selectel\CloudStorage\Exceptions\FileNotFoundException;
 use ArgentCrusade\Selectel\CloudStorage\Exceptions\UploadFailedException;
@@ -11,19 +12,14 @@ use ArgentCrusade\Selectel\CloudStorage\Exceptions\ApiRequestFailedException;
 
 class SelectelAdapter implements AdapterInterface
 {
+    use NotSupportingVisibilityTrait;
+
     /**
      * Storage container.
      *
      * @var \ArgentCrusade\Selectel\CloudStorage\Contracts\ContainerContract
      */
     protected $container;
-
-    /**
-     * Container visibility.
-     *
-     * @var string
-     */
-    protected $visibility = 'public';
 
     /**
      * Create new instance.
@@ -33,7 +29,6 @@ class SelectelAdapter implements AdapterInterface
     public function __construct(ContainerContract $container)
     {
         $this->container = $container;
-        $this->visibility = $container->type() == 'gallery' ? 'public' : $container->type();
     }
 
     /**
@@ -65,7 +60,6 @@ class SelectelAdapter implements AdapterInterface
                 'path' => $file['name'],
                 'size' => intval($file['bytes']),
                 'timestamp' => strtotime($file['last_modified']),
-                'visibility' => $this->visibility,
             ];
         }
 
@@ -157,14 +151,6 @@ class SelectelAdapter implements AdapterInterface
     public function getTimestamp($path)
     {
         return $this->getMetadata($path);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getVisibility($path)
-    {
-        return ['visibility' => $this->visibility];
     }
 
     /**
@@ -287,18 +273,5 @@ class SelectelAdapter implements AdapterInterface
         }
 
         return $this->getMetadata($dirname);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setVisibility($path, $visibility)
-    {
-        if ($this->visibility != $visibility) {
-            $this->visibility = $visibility;
-            $this->container->setType($visibility);
-        }
-
-        return $this->getMetadata($path);
     }
 }

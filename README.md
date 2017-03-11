@@ -33,6 +33,32 @@ $adapter = new SelectelAdapter($container);
 $filesystem = new Filesystem($adapter);
 ```
 
+## Unsupported methods
+
+Due to the implementation of the Selectel API some methods are missing or may not function as expected.
+
+### Visibility management
+
+Selectel provides visibility support only for Containers, but not for files. The change of visibility for the entire container instead of a single file/directory may be confusing for adapter users. Adapter will throw `LogicException` on `getVisibility`/`setVisbility` calls.
+
+### Directories management
+
+Currently Selectel Adapter can display and delete only those directories that were created via `createDir` method. Dynamic directories (those that were created via `write`/`writeStream` methods) can not be deleted or listed as directory.
+
+
+```php
+$fs = new Filesystem($adapter);
+
+$fs->createDir('images'); // The 'images' directory can be deleted and will be listed as 'dir' in the results of `$fs->listContents()`.
+
+$fs->write('documents/hello.txt'); // The 'documents' directory can not be deleted and won't be listed in the results of `$fs->listContents()`.
+```
+
+
+## Note on Closing Streams
+
+Selectel Adapter leaves the streams **open** after consuming them. Make sure that you've closed all streams that you opened.
+
 ## Laravel Integration
 
 You can use this adapter with Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem).
@@ -107,7 +133,7 @@ class SelectelServiceProvider extends ServiceProvider
 ```
 
 
-Finally add `App\Providers\SelectelServiceProvider::class` to your providers list in `config/app.php`
+Finally, add `App\Providers\SelectelServiceProvider::class` to your providers list in `config/app.php`
 
 
 ```php

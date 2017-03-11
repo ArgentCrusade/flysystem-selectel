@@ -33,6 +33,107 @@ $adapter = new SelectelAdapter($container);
 $filesystem = new Filesystem($adapter);
 ```
 
+## Laravel Integration
+
+You can use this adapter with Laravel's (https://laravel.com/docs/5.4/filesystem)[Storage System].
+
+
+Add `selectel` disk to `config/filesystems.php` configuration file (`disks` section):
+
+
+```php
+'selectel' => [
+    'driver' => 'selectel',
+    'username' => env('SELECTEL_USERNAME'),
+    'password' => env('SELECTEL_PASSWORD'),
+    'container' => env('SELECTEL_CONTAINER'),
+]
+```
+
+
+Add configuration values to your `.env` file:
+
+
+```
+SELECTEL_USERNAME=username
+SELECTEL_PASSWORD=password
+SELECTEL_CONTAINER=container-name
+```
+
+
+Create new Service Provider via `php artisan make:provider SelectelServiceProvider` command or just create `SelectelServiceProvider.php` file inside of `app/Providers` directory.
+
+
+```php
+<?php
+
+namespace App\Providers;
+
+use League\Flysystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\ServiceProvider;
+use ArgentCrusade\Flysystem\Selectel\SelectelAdapter;
+use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
+use ArgentCrusade\Selectel\CloudStorage\Api\ApiClient;
+
+class SelectelServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Storage::extend('selectel', function ($app, $config) {
+            $api = new ApiClient($config['username'], $config['password']);
+            $storage = new CloudStorage($api);
+            $container = $storage->getContainer($config['container']);
+
+            return new Filesystem(new SelectelAdapter($container));
+        });
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+}
+```
+
+
+Finally add `App\Providers\SelectelServiceProvider::class` to your providers list in `config/app.php`
+
+
+```php
+/*
+ * Application Service Providers...
+ */
+App\Providers\SelectelServiceProvider::class,
+```
+
+
+Now you can use Selectel disk as
+
+
+```php
+use Illuminate\Support\Facades\Storage;
+
+Storage::disk('selectel')->put('file.txt', 'Hello world');
+```
+
+
+Also you may want to set `selectel` as default disk to ommit `disk('selectel')` calls and use storage just as `Storage::put('file.txt', 'Hello world')`.
+
+
+For more info please refer to Laravel's (https://laravel.com/docs/5.4/filesystem)[Storage System] documentation.
+
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

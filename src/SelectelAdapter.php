@@ -61,8 +61,9 @@ class SelectelAdapter implements AdapterInterface
 
         foreach ($files as $file) {
             $result[] = [
-                'type' => 'file',
+                'type' => $file['content_type'] === 'application/directory' ? 'dir' : 'file',
                 'path' => $file['name'],
+                'size' => intval($file['bytes']),
                 'timestamp' => strtotime($file['last_modified']),
                 'visibility' => $this->visibility,
             ];
@@ -118,7 +119,7 @@ class SelectelAdapter implements AdapterInterface
      */
     public function listContents($directory = '', $recursive = false)
     {
-        $files = $this->container->files()->fromDirectory($directory)->get();
+        $files = $this->container->files()->withPrefix($directory)->get();
         $result = $this->transformFiles($files);
 
         return $result;

@@ -14,11 +14,16 @@ class SelectelAdapterTest extends PHPUnit_Framework_TestCase
     public function selectelProvider()
     {
         $collection = new Collection([
-            ['name' => 'path/to/file', 'last_modified' => '2000-01-01 00:00:00'],
+            [
+                'name' => 'path/to/file',
+                'content_type' => 'text/plain',
+                'bytes' => 1024,
+                'last_modified' => '2000-01-01 00:00:00',
+            ],
         ]);
 
         $files = Mockery::mock('ArgentCrusade\Selectel\CloudStorage\FluentFilesLoader');
-        $files->shouldReceive('fromDirectory')->andReturn($files);
+        $files->shouldReceive('withPrefix')->andReturn($files);
         $files->shouldReceive('get')->andReturn($collection);
 
         $mock = Mockery::mock('ArgentCrusade\Selectel\CloudStorage\Container');
@@ -33,11 +38,16 @@ class SelectelAdapterTest extends PHPUnit_Framework_TestCase
     public function metaDataProvider()
     {
         $collection = new Collection([
-            ['name' => 'path/to/file', 'last_modified' => '2000-01-01 00:00:00'],
+            [
+                'name' => 'path/to/file',
+                'content_type' => 'text/plain',
+                'bytes' => 1024,
+                'last_modified' => '2000-01-01 00:00:00',
+            ],
         ]);
 
         $files = Mockery::mock('ArgentCrusade\Selectel\CloudStorage\FluentFilesLoader');
-        $files->shouldReceive('fromDirectory')->andReturn($files);
+        $files->shouldReceive('withPrefix')->andReturn($files);
         $files->shouldReceive('get')->andReturn($collection);
 
         $mock = Mockery::mock('ArgentCrusade\Selectel\CloudStorage\Container');

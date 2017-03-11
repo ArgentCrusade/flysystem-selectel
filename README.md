@@ -35,7 +35,7 @@ $filesystem = new Filesystem($adapter);
 
 ## Laravel Integration
 
-You can use this adapter with Laravel's (https://laravel.com/docs/5.4/filesystem)[Storage System].
+You can use this adapter with Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem).
 
 
 Add `selectel` disk to `config/filesystems.php` configuration file (`disks` section):
@@ -131,7 +131,7 @@ Storage::disk('selectel')->put('file.txt', 'Hello world');
 Also you may want to set `selectel` as default disk to ommit `disk('selectel')` calls and use storage just as `Storage::put('file.txt', 'Hello world')`.
 
 
-For more info please refer to Laravel's (https://laravel.com/docs/5.4/filesystem)[Storage System] documentation.
+For more info please refer to Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem) documentation.
 
 
 ## Change log

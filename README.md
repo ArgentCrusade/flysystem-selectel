@@ -33,6 +33,50 @@ $adapter = new SelectelAdapter($container);
 $filesystem = new Filesystem($adapter);
 ```
 
+## Laravel Integration
+
+You can use this adapter with Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem).
+
+
+Add `selectel` disk to `config/filesystems.php` configuration file (`disks` section):
+
+
+```php
+'selectel' => [
+    'driver' => 'selectel',
+    'username' => 'selectel-username',
+    'password' => 'selectel-password',
+    'container' => 'selectel-container',
+]
+```
+
+
+Add `ArgentCrusade\Flysystem\Selectel\SelectelServiceProvider::class` to your providers list in `config/app.php`
+
+
+```php
+/*
+ * Package Service Providers...
+ */
+ArgentCrusade\Flysystem\Selectel\SelectelServiceProvider::class,
+```
+
+
+Now you can use Selectel disk as
+
+
+```php
+use Illuminate\Support\Facades\Storage;
+
+Storage::disk('selectel')->put('file.txt', 'Hello world');
+```
+
+
+Also you may want to set `selectel` as default disk to ommit `disk('selectel')` calls and use storage just as `Storage::put('file.txt', 'Hello world')`.
+
+
+For more info please refer to Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem) documentation.
+
 ## Unsupported methods
 
 Due to the implementation of the Selectel API some methods are missing or may not function as expected.
@@ -58,106 +102,6 @@ $fs->write('documents/hello.txt'); // The 'documents' directory can not be delet
 ## Note on Closing Streams
 
 Selectel Adapter leaves the streams **open** after consuming them. Make sure that you've closed all streams that you opened.
-
-## Laravel Integration
-
-You can use this adapter with Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem).
-
-
-Add `selectel` disk to `config/filesystems.php` configuration file (`disks` section):
-
-
-```php
-'selectel' => [
-    'driver' => 'selectel',
-    'username' => env('SELECTEL_USERNAME'),
-    'password' => env('SELECTEL_PASSWORD'),
-    'container' => env('SELECTEL_CONTAINER'),
-]
-```
-
-
-Add configuration values to your `.env` file:
-
-
-```
-SELECTEL_USERNAME=username
-SELECTEL_PASSWORD=password
-SELECTEL_CONTAINER=container-name
-```
-
-
-Create new Service Provider via `php artisan make:provider SelectelServiceProvider` command or just create `SelectelServiceProvider.php` file inside of `app/Providers` directory.
-
-
-```php
-<?php
-
-namespace App\Providers;
-
-use League\Flysystem\Filesystem;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\ServiceProvider;
-use ArgentCrusade\Flysystem\Selectel\SelectelAdapter;
-use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
-use ArgentCrusade\Selectel\CloudStorage\Api\ApiClient;
-
-class SelectelServiceProvider extends ServiceProvider
-{
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Storage::extend('selectel', function ($app, $config) {
-            $api = new ApiClient($config['username'], $config['password']);
-            $storage = new CloudStorage($api);
-            $container = $storage->getContainer($config['container']);
-
-            return new Filesystem(new SelectelAdapter($container));
-        });
-    }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
-}
-```
-
-
-Finally, add `App\Providers\SelectelServiceProvider::class` to your providers list in `config/app.php`
-
-
-```php
-/*
- * Application Service Providers...
- */
-App\Providers\SelectelServiceProvider::class,
-```
-
-
-Now you can use Selectel disk as
-
-
-```php
-use Illuminate\Support\Facades\Storage;
-
-Storage::disk('selectel')->put('file.txt', 'Hello world');
-```
-
-
-Also you may want to set `selectel` as default disk to ommit `disk('selectel')` calls and use storage just as `Storage::put('file.txt', 'Hello world')`.
-
-
-For more info please refer to Laravel's [Storage System](https://laravel.com/docs/5.4/filesystem) documentation.
 
 
 ## Change log

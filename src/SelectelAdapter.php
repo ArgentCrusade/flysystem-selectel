@@ -163,7 +163,7 @@ class SelectelAdapter implements AdapterInterface
      */
     public function getVisibility($path)
     {
-        return $this->visibility;
+        return ['visibility' => $this->visibility];
     }
 
     /**
@@ -171,13 +171,7 @@ class SelectelAdapter implements AdapterInterface
      */
     public function write($path, $contents, Config $config)
     {
-        try {
-            $this->container->uploadFromString($path, $contents);
-        } catch (UploadFailedException $e) {
-            return false;
-        }
-
-        return $this->getMetadata($path);
+        return $this->writeToContainer('String', $path, $contents);
     }
 
     /**
@@ -185,8 +179,22 @@ class SelectelAdapter implements AdapterInterface
      */
     public function writeStream($path, $resource, Config $config)
     {
+        return $this->writeToContainer('Stream', $path, $resource);
+    }
+
+    /**
+     * Writes string or stream to container.
+     *
+     * @param string          $type    Upload type
+     * @param string          $path    File path
+     * @param string|resource $payload String content or Stream resource
+     *
+     * @return array|bool
+     */
+    protected function writeToContainer($type, $path, $payload)
+    {
         try {
-            $this->container->uploadFromStream($path, $resource);
+            $this->container->{'uploadFrom'.$type}($path, $payload);
         } catch (UploadFailedException $e) {
             return false;
         }
@@ -244,7 +252,7 @@ class SelectelAdapter implements AdapterInterface
     public function delete($path)
     {
         try {
-            $this->getFile($path)->delete($path);
+            $this->getFile($path)->delete();
         } catch (ApiRequestFailedException $e) {
             return false;
         }

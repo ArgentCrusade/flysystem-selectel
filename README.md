@@ -2,6 +2,7 @@
 
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
+[![ScrutinizerCI][ico-scrutinizer]][link-scrutinizer]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 
@@ -57,9 +58,11 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://poser.pugx.org/argentcrusade/flysystem-selectel/version?format=flat
 [ico-license]: https://poser.pugx.org/argentcrusade/flysystem-selectel/license?format=flat
 [ico-travis]: https://api.travis-ci.org/ArgentCrusade/flysystem-selectel.svg?branch=master
-[ico-styleci]: https://styleci.io/repos/78674486/shield?branch=master&style=flat
+[ico-styleci]: https://styleci.io/repos/84637792/shield?branch=master&style=flat
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/ArgentCrusade/flysystem-selectel/badges/quality-score.png?b=master
 
 [link-packagist]: https://packagist.org/packages/argentcrusade/flysystem-selectel
 [link-travis]: https://travis-ci.org/ArgentCrusade/flysystem-selectel
-[link-styleci]: https://styleci.io/repos/78674486
+[link-styleci]: https://styleci.io/repos/84637792
+[link-scrutinizer]: https://scrutinizer-ci.com/g/ArgentCrusade/flysystem-selectel/
 [link-author]: https://github.com/tzurbaev

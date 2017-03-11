@@ -1,0 +1,29 @@
+{
+    "name": "argentcrusade/flysystem-selectel",
+    "description": "Flysystem adapter for Selectel Cloud Storage",
+    "keywords": ["flysystem", "selectel"],
+    "homepage": "https://github.com/argentcrusade/flysystem-selectel",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.6",
+        "league/flysystem": "~1.0",
+        "argentcrusade/selectel-cloud-storage": "~1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.0",
+        "mockery/mockery": "~0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "ArgentCrusade\\Flysystem\\Selectel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}

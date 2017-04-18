@@ -17,6 +17,8 @@ class SelectelServiceProvider extends ServiceProvider
     {
         Storage::extend('selectel', function ($app, $config) {
             $api = new ApiClient($config['username'], $config['password']);
+            $api->authenticate();
+
             $storage = new CloudStorage($api);
             $container = $storage->getContainer($config['container']);
 

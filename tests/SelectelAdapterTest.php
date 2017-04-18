@@ -99,6 +99,18 @@ class SelectelAdapterTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider selectelProvider
      */
+    public function testUrl($adapter, $mock, $files)
+    {
+        $mock->shouldReceive('url')->with('/file.txt')->andReturn('https://static.example.org/file.txt');
+        $mock->shouldReceive('url')->with('file.txt')->andReturn('https://static.example.org/file.txt');
+
+        $this->assertEquals('https://static.example.org/file.txt', $adapter->getUrl('/file.txt'));
+        $this->assertEquals('https://static.example.org/file.txt', $adapter->getUrl('file.txt'));
+    }
+
+    /**
+     * @dataProvider selectelProvider
+     */
     public function testWrite($adapter, $mock)
     {
         $mock->shouldReceive('uploadFromString')->andReturn(md5('test'));

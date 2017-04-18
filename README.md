@@ -17,6 +17,11 @@ You can install the package via composer:
 $ composer require argentcrusade/flysystem-selectel
 ```
 
+## Upgrade
+
+### From 1.0* to 1.1.0
+New setting `container_url` was added. You can set your container's custom domain here (for example, `https://static.example.org`) and this option will be used when retrieving fully qualified URLs to files and directories.
+
 ## Usage
 
 ``` php
@@ -47,8 +52,11 @@ Add `selectel` disk to `config/filesystems.php` configuration file (`disks` sect
     'username' => 'selectel-username',
     'password' => 'selectel-password',
     'container' => 'selectel-container',
+    'container_url' => 'https://static.example.org',
 ]
 ```
+
+`container_url` setting (new in version **1.1.0**) allows you to override default Selectel's CDN domain (if you have custom domain attached). You may omit this setting if you're using default domain, file URLs will look like `http://XXX.selcdn.ru/container_name/path/to/file.txt`, where `XXX` - your unique subdomain (`X-Storage-Url` header value).
 
 
 Add `ArgentCrusade\Flysystem\Selectel\SelectelServiceProvider::class` to your providers list in `config/app.php`

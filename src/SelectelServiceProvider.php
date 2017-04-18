@@ -20,6 +20,10 @@ class SelectelServiceProvider extends ServiceProvider
             $storage = new CloudStorage($api);
             $container = $storage->getContainer($config['container']);
 
+            if (isset($config['container_url'])) {
+                $container->setUrl($config['container_url']);
+            }
+
             return new Filesystem(new SelectelAdapter($container));
         });
     }

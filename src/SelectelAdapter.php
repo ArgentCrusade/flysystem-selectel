@@ -274,4 +274,16 @@ class SelectelAdapter implements AdapterInterface
 
         return $this->getMetadata($dirname);
     }
+
+    /**
+     * Get full URL to given path.
+     *
+     * @param string $path = ''
+     *
+     * @return string
+     */
+    public function getUrl($path = '')
+    {
+        return $this->container->url($path);
+    }
 }

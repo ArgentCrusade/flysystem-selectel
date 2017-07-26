@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.2] - 2017-07-26
+### Added
+- Add `mimetype` field to transformed files array, allowing to use Flysystem's `getMimetype` method.
+
+## [1.1.1] - 2017-04-18
+### Changed
+- Perform API authentication in SelectelServiceProvider.
+
 ## [1.1.0] - 2017-04-18
 ### Added
 - New configuration option `container_url`. This will help you to retrieve file URLs while using custom CDN domain;
@@ -33,7 +41,9 @@ First release.
 ## [0.9.0] - 2017-03-11
 Initial release.
 
-[Unreleased]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.1...1.1.2
+[1.1.1]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ArgentCrusade/flysystem-selectel/compare/0.9.0...1.0.0

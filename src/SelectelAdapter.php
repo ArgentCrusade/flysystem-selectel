@@ -60,6 +60,7 @@ class SelectelAdapter implements AdapterInterface
                 'path' => $file['name'],
                 'size' => intval($file['bytes']),
                 'timestamp' => strtotime($file['last_modified']),
+                'mimetype' => $file['content_type'],
             ];
         }
 

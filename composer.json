@@ -23,6 +23,13 @@
             "tests/"
         ]
     },
+    "extra": {
+      "laravel": {
+          "providers": [
+              "ArgentCrusade\\Flysystem\\Selectel\\SelectelServiceProvider"
+            ]
+        }
+    },
     "scripts": {
         "test": "phpunit"
     }

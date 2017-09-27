@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2017-09-27
+### Added
+- Added support for Laravel 5.5.'s auto-discovery feature (thanks @reg2005).
+
 ## [1.1.2] - 2017-07-26
 ### Added
 - Add `mimetype` field to transformed files array, allowing to use Flysystem's `getMimetype` method.
@@ -41,7 +45,8 @@ First release.
 ## [0.9.0] - 2017-03-11
 Initial release.
 
-[Unreleased]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.2...HEAD
+[Unreleased]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/ArgentCrusade/flysystem-selectel/compare/1.0.1...1.1.0

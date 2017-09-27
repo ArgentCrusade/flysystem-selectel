@@ -24,9 +24,9 @@
         ]
     },
     "extra": {
-      "laravel": {
-          "providers": [
-              "ArgentCrusade\\Flysystem\\Selectel\\SelectelServiceProvider"
+        "laravel": {
+            "providers": [
+                "ArgentCrusade\\Flysystem\\Selectel\\SelectelServiceProvider"
             ]
         }
     },

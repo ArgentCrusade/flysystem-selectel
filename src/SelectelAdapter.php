@@ -287,4 +287,9 @@ class SelectelAdapter implements AdapterInterface
     {
         return $this->container->url($path);
     }
+    
+    public function getPathPrefix()
+    {
+        return '/';
+    }
 }
